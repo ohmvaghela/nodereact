@@ -9,7 +9,7 @@ const router = express.Router();
 
 const JwtSecret = "myKey";
 
-const AuthHandle = async (req, res) => {
+const addUserHandle = async (req, res) => {
 
     // Validate data with schema 
     const errors = validationResult(req);
@@ -124,6 +124,8 @@ const userDetailHandle = async(req,res) =>{
         // now data found using id which is unique
         const userID = req.user.id;
         const user = await UserSchema.findById(userID).select("-password");
+        // const user = await UserSchema.find();
+
         // send the fetched data back to user
         res.send(user);
     } catch (error) {
@@ -141,10 +143,10 @@ loginValidator = [
     body("password").exists()
 ]
 
-router.post('/addUser', addUserValidator, AuthHandle);
+router.post('/addUser', addUserValidator, addUserHandle);
 
 router.post("/login", loginValidator, loginHandle);
 
-router.post("/userDetails",fetchUser,userDetailHandle)
+router.post("/userDetails",fetchUser,userDetailHandle);
 
 module.exports = router

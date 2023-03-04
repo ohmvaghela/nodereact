@@ -3,16 +3,18 @@ const DB = require("./models/VSCodeDB")
 const express = require("express");
 const router = require("./routes/auth");
 
-
 app = express();
-const port = 8000;
+const port = 5000;
 app.use(express.json());
 DB();
 
 app.get("/",(req,res)=>{res.send("holla");});
 
-app.use("/",router);
+app.use("/auth",router);
 
 app.listen(port, () => {
     console.log(`listeneing to ${port}`)
 });
+
+
+
